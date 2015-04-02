@@ -92,7 +92,7 @@ function update() {
     game.physics.arcade.collide(player, door);
 	game.physics.arcade.collide(enemy, platforms);
 	game.physics.arcade.collide(enemy2, platforms);
-    game.physics.arcade.overlap(player, potions, collectStar, collectStar2);
+    game.physics.arcade.overlap(player, potions, collectBottle, collectBottle2);
 	game.physics.arcade.overlap(player, enemy, collisionHandler);
 	game.physics.arcade.overlap(player, enemy2, collisionHandler2);
     player.body.velocity.x = 0;
@@ -123,13 +123,13 @@ function update() {
 		enemy2.body.velocity.y = -350;
     }
 }
-function collectStar (player, bottle) {
+function collectBottle (player, bottle) {
 	music.play();
     bottle.kill();
     percent += 10;
     text.text = "Collect the potions and don't get caught     		Human: " + percent + "%";
 }
-function collectStar2 (player, bottle) {
+function collectBottle2 (player, bottle) {
 	if (percent < 90) {
 		potions = game.add.group();
 		potions.enableBody = true;
