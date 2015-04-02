@@ -17,7 +17,6 @@ var platforms;
 var cursors;
 var enemy;
 var enemy2;
-var enemy3;
 var potions;
 var percent = 0;
 var text;
@@ -63,12 +62,9 @@ function create() {
 	enemy.scale.setTo(0.2, 0.2);
 	enemy2 = game.add.sprite(200, 200, 'enemy');
 	enemy2.scale.setTo(0.2, 0.2);
-	enemy3 = game.add.sprite(200, 200, 'enemy');
-	enemy3.scale.setTo(0.2, 0.2);
     game.physics.arcade.enable(player);
 	game.physics.arcade.enable(enemy);
 	game.physics.arcade.enable(enemy2);
-	game.physics.arcade.enable(enemy3);
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
@@ -78,9 +74,6 @@ function create() {
 	enemy2.body.bounce.y = 0.2;
     enemy2.body.gravity.y = 300;
     enemy2.body.collideWorldBounds = true;
-	enemy3.body.bounce.y = 0.2;
-    enemy3.body.gravity.y = 300;
-    enemy3.body.collideWorldBounds = true;
     potions = game.add.group();
     potions.enableBody = true;
     var random = game.rnd.realInRange(100, 500);
@@ -99,11 +92,9 @@ function update() {
     game.physics.arcade.collide(player, door);
 	game.physics.arcade.collide(enemy, platforms);
 	game.physics.arcade.collide(enemy2, platforms);
-	game.physics.arcade.collide(enemy3, platforms);
     game.physics.arcade.overlap(player, potions, collectStar, collectStar2);
 	game.physics.arcade.overlap(player, enemy, collisionHandler);
 	game.physics.arcade.overlap(player, enemy2, collisionHandler2);
-	game.physics.arcade.overlap(player, enemy3, collisionHandler3);
     player.body.velocity.x = 0;
 	if (percent == 100) {
 		text.text = "You are now fully human, grab the key and escape!";
@@ -114,26 +105,22 @@ function update() {
 		player.body.velocity.x = -150;
 		enemy.body.velocity.x = -200;
 		enemy2.body.velocity.x = 200;
-		enemy3.body.velocity.x = 50;
     }
     else if (cursors.right.isDown) {
         player.body.velocity.x = 150;
 		enemy.body.velocity.x = 200;
 		enemy2.body.velocity.x = -200;
-		enemy3.body.velocity.x = -400;
     }
     else {
         player.animations.stop();
 		enemy.animations.stop();
 		enemy2.animations.stop();
-		enemy3.animations.stop();
     }
     
     if (cursors.up.isDown && player.body.touching.down) {
         player.body.velocity.y = -350;
 		enemy.body.velocity.y = -350;
 		enemy2.body.velocity.y = -350;
-		enemy3.body.velocity.y = -350;
     }
 }
 function collectStar (player, bottle) {
@@ -156,21 +143,12 @@ function collisionHandler (player, enemy) {
     player.kill();
 	enemy.kill();
 	enemy2.kill();
-	enemy3.kill();
 	text.text = "You have been captured by your clones! \nBetter luck next time!";
 }
 function collisionHandler2 (player, enemy2) {
     player.kill();
 	enemy2.kill();
 	enemy.kill();
-	enemy3.kill();
-	text.text = "You have been captured by your clones! \nBetter luck next time!";
-}
-function collisionHandler3 (player, enemy3) {
-    player.kill();
-	enemy2.kill();
-	enemy.kill();
-	enemy3.kill();
 	text.text = "You have been captured by your clones! \nBetter luck next time!";
 }
 };
